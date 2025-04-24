@@ -3,5 +3,5 @@ for txid in $(bitcoin-cli -signet getblock $(bitcoin-cli -signet getblockhash 24
     # Check if any input has nSequence < 0xFFFFFFFE (4294967294)
     bitcoin-cli -signet getrawtransaction "$txid" true | \
     jq -e '.vin[] | select(.sequence < 4294967294)' >/dev/null && \
-    echo "RBF-signaling txid: $txid" && break
+    echo "$txid" && break
 done
